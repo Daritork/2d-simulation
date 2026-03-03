@@ -2,6 +2,8 @@
 
 angle relation of the radioaktive particles inside of the magnet field
 
+check it out: https://daritork.github.io/2d-simulation/
+
 ## Overview
 
 This project simulates the behavior of radioactive particles (alpha, beta, and gamma radiation) as they pass through a magnetic field. It visualizes how different particle types are deflected at various angles, demonstrating the principles of charged particle motion in magnetic fields.
