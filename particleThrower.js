@@ -2,18 +2,19 @@
 
 class particleThrower {
   constructor() {
-    this.elementInside = true;
-    this.particles = [];
+    this.radioaktiveStickInside = true;
   }
 
   show() {
     fill("#414141");
     rect(-4 * multiplier, 0, 3 * multiplier, 1 * multiplier);
 
-    if (this.elementInside) {
+    if (this.radioaktiveStickInside) {
       fill("#292997");
       rect(-5 * multiplier, 0, 5.5 * multiplier, 0.7 * multiplier, 5);
-      this.particleTrow();
+      if (playB.value() == "1") {
+        this.generateParticle();
+      }
     }
 
     //*holders
@@ -32,33 +33,23 @@ class particleThrower {
     }
   }
 
-  particleTrow() {
-    push();
+  generateParticle() {
+    // if (frameCount % 20 == 0 && particles.length < 1) {
+    if (frameCount % 20 == 0) {
+      // let int = Math.floor(Math.random() * 4);
+      let int = 1;
 
-    translate(-2.15 * multiplier, 0);
+      //? generates angle between -10° and 10° in gausian distribution
+      let startAngle = randomGaussian(0, 25);
 
-    if (frameCount % 60 == 0) {
-      let int = Math.floor(Math.random() * 4);
+      //? generates random speed multiplier between 0.7 and 1
+      let speedMultipier = Math.random() * 0.3 + 0.7;
 
-      this.particles.push(
-        new particle({
-          mass: particles[int].mass,
-          charge: particles[int].charge,
-          velocity: particles[int].velocity,
-        }),
-      );
+      addParticle({
+        type: int,
+        startAngle: startAngle,
+        speedMultipier: speedMultipier,
+      });
     }
-
-    for (let i = 0; i < this.particles.length; i++) {
-      const x = this.particles[i].position.x;
-      const y = this.particles[i].position.y;
-      this.particles[i].show();
-
-      if (dist(x, y, 0, 0) >= 9.5 * multiplier) {
-        this.particles.splice(i, 1);
-      }
-    }
-
-    pop();
   }
 }

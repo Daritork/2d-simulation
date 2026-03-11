@@ -9,10 +9,17 @@ let angleSelectionSlider;
 
 //* Objects
 let m1, counter, pt;
+let particles = [];
+
+//*Objects control vars
+let magnetOn = true;
+
+//*buttons
+let playB;
 
 function setup() {
   //? setUp: create Canva, Text align to middle, agnle mode to degree and shapes creation to center
-  createCanvas(window.innerWidth, (9 * window.innerWidth) / 16);
+  createCanvas(window.innerWidth, (9 * window.innerWidth) / 8);
   textAlign(CENTER, CENTER);
   angleMode(DEGREES);
   rectMode(CENTER);
@@ -22,10 +29,11 @@ function setup() {
 
   //*Sliders
   angleSelectionSlider = createSlider(-45, 45, 0, 15);
+  angleSelectionSlider.position(0, 20);
 
   //* Magnet
   m1 = new magnet({
-    power: 52e-3,
+    power: magnetPower,
   });
 
   //*counter
@@ -33,31 +41,22 @@ function setup() {
 
   //*
   pt = new particleThrower();
+
+  //*buttons
+  playB = createButton("play", "0");
+  playB.mousePressed(playButtonPressed);
+  // playB.addClass("playButton");
+  playB.position(26 * multiplier, 3 * multiplier);
 }
 
 function playButtonPressed() {
-  play = !play;
+  playB.value(playB.value() == "0" ? "1" : "0");
 
-  if (!play) {
-    playButton.html("play");
+  if (playB.value() == "0") {
+    playB.html("play");
   } else {
-    playButton.html("pause");
+    playB.html("pause");
   }
-}
-
-function changeParticle() {
-  play = false;
-  createParticle();
-}
-
-function createParticle() {
-  p1 = new particle({
-    start: { x: 150, y: 250 },
-    velocity: 2e7,
-    angle: 0,
-    mass: particles[particleType.selected()].mass,
-    charge: particles[particleType.selected()].charge,
-  });
 }
 
 //? darws an arrow in der direction of the vector
@@ -75,8 +74,8 @@ function drawArrow(base, vec, myColor) {
   pop();
 }
 
-function reset() {
-  play = false;
-  changeParticle();
-  playButton.html("play");
-}
+// function reset() {
+//   play = false;
+//   changeParticle();
+//   playButton.html("play");
+// }

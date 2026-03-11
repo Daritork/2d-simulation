@@ -28,7 +28,7 @@ class magnet {
     fill(customBlack);
     for (let i = 0; i < 2; i++) {
       rect(
-        2 * multiplier,
+        this.cordsX * multiplier,
         (1 - 2 * i) * 3.7 * multiplier,
         0.8 * multiplier,
         2.5 * multiplier,

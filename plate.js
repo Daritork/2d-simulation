@@ -4,7 +4,6 @@
   cords: {x: number, y: number};
   width: number; //? in cm
   height: number; //? in cm
-  play: boolean; //? animation
   magnetOn: boolean; //? with(-out) magnet
 */
 
@@ -12,8 +11,7 @@ class Plate {
   constructor() {
     this.width = 17;
     this.height = 13;
-    this.cords = { x: width / 2, y: height / 2 };
-    this.magnetOn = false;
+    this.cords = { x: 12.5 * multiplier, y: height / 2 };
   }
 
   show() {
@@ -22,7 +20,7 @@ class Plate {
     fill("#a09779");
     rect(
       this.cords.x,
-      this.cords.y,
+      8 * multiplier,
       this.width * multiplier,
       this.height * multiplier,
     );
@@ -31,7 +29,8 @@ class Plate {
     strokeWeight(0);
 
     //* decorations
-    translate(plateStartX + 4 * multiplier, this.cords.y);
+    translate(plateStartX + 4 * multiplier, 8 * multiplier);
+    stroke("black");
     strokeWeight(0.08 * multiplier);
     textSize(0.4 * multiplier);
 
@@ -42,18 +41,6 @@ class Plate {
 
     //* angle lines
     this.anglelines();
-
-    //? use magnet
-    //! not permanent
-    this.magnetOn = true;
-    //!
-    if (this.magnetOn) {
-      m1.show();
-    }
-
-    counter.show(angleSelectionSlider.value());
-
-    pt.show();
   }
 
   anglelines() {

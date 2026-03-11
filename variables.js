@@ -1,4 +1,4 @@
-const particles = [
+const particleTypes = [
   //? alpha
   {
     mass: 6.644e-27,
@@ -25,8 +25,10 @@ const particles = [
   },
 ];
 
+const magnetPower = 50e-3;
+
 const multiplier = window.innerWidth / 31;
 
 const customBlack = "#212121";
 
-const delta_t = 1e-12;
+const delta_t = 3e-12;

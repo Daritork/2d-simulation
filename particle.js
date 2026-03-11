@@ -13,8 +13,8 @@
 //* a class particle is an upperclass for alpha, beta and gamma particles
 class particle {
   constructor({ mass, charge, velocity }) {
-    this.position = createVector(0, 0, 0);
-    this.velocity = createVector(velocity * 100 * multiplier, 0, 0);
+    this.position = createVector(-2.2 * multiplier, 0, 0);
+    this.velocity = velocity;
 
     this.mass = mass;
     this.charge = charge;
@@ -22,8 +22,6 @@ class particle {
     //? radius = (m * V) / (q * B)
 
     // this.r = (this.mass * this.velocity.x) / (this.charge * m1.power);
-
-    // this.radiusCenter = { x: 2 * multiplier, y: this.position.y + this.r };
 
     //*first acceleration happend only in one direction
     this.acceleration = p5.Vector.mult(
@@ -34,7 +32,7 @@ class particle {
 
   inMagnet() {
     if (
-      dist(this.position.x, this.position.y, 4 * multiplier, 0) <
+      dist(this.position.x, this.position.y, 2 * multiplier, 0) <
       m1.r * multiplier
     ) {
       return true;
@@ -60,7 +58,7 @@ class particle {
   }
 
   movement() {
-    if (this.inMagnet() && SimulationPlate.magnetOn && this.mass != 0) {
+    if (this.inMagnet() && magnetOn && this.mass != 0) {
       this.leapfrog();
     } else {
       this.position = p5.Vector.add(
@@ -74,7 +72,7 @@ class particle {
     //* update velocity: V = V + 0.5 * a * t
     this.velocity = p5.Vector.add(
       this.velocity,
-      p5.Vector.mult(this.acceleration, delta_t),
+      p5.Vector.mult(this.acceleration, 0.5 * delta_t),
     );
 
     //* update position: x = x + V * t
@@ -83,7 +81,7 @@ class particle {
       p5.Vector.mult(this.velocity, delta_t),
     );
 
-    //* update acceleration: F_z = F => a = V^2 / r
+    //* update acceleration: F_l = F => a = VxB * C / m
     this.acceleration = p5.Vector.mult(
       p5.Vector.cross(this.velocity, m1.power),
       this.charge / this.mass,
@@ -92,7 +90,7 @@ class particle {
     //* update velocity once more: V = V + 0.5 * a * t
     this.velocity = p5.Vector.add(
       this.velocity,
-      p5.Vector.mult(this.acceleration, delta_t),
+      p5.Vector.mult(this.acceleration, 0.5 * delta_t),
     );
   }
 }

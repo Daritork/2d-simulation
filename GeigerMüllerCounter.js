@@ -1,5 +1,7 @@
 class GeigerMüllerCounter {
-  constructor() {}
+  constructor() {
+    this.collectedData = [];
+  }
 
   show(angle) {
     push();
@@ -13,17 +15,17 @@ class GeigerMüllerCounter {
     strokeWeight(0.05 * multiplier);
 
     fill("#964722");
-    rect(0.45 * multiplier, 0, 0.8 * multiplier, 1.2 * multiplier);
+    rect(0.45 * multiplier, 0, 0.7 * multiplier, 1.1 * multiplier);
     fill("#414141");
     rect(3.5 * multiplier, 0, 5.6 * multiplier, 1.8 * multiplier);
     //? theory: color as a touch marker
-    strokeWeight(2);
-    stroke("#5a220a");
+    strokeWeight(5);
+    stroke("#ab6547");
     line(
       0.1 * multiplier,
-      -0.55 * multiplier,
+      -0.5 * multiplier,
       0.1 * multiplier,
-      0.55 * multiplier,
+      0.5 * multiplier,
     );
 
     stroke("black");
