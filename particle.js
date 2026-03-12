@@ -33,7 +33,8 @@ class particle {
   inMagnet() {
     if (
       dist(this.position.x, this.position.y, 2 * multiplier, 0) <
-      m1.r * multiplier
+        m1.r * multiplier &&
+      magnetOn.checked()
     ) {
       return true;
     } else {

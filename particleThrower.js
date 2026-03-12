@@ -12,7 +12,7 @@ class particleThrower {
     if (this.radioaktiveStickInside) {
       fill("#292997");
       rect(-5 * multiplier, 0, 5.5 * multiplier, 0.7 * multiplier, 5);
-      if (playB.value() == "1") {
+      if (playB.value() == "playing") {
         this.generateParticle();
       }
     }
