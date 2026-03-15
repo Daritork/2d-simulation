@@ -41,7 +41,7 @@ function setup() {
   playB.position(22 * multiplier, 10.7 * multiplier);
 
   restartB = createButton("Messung speichern");
-  restartB.mousePressed(reset);
+  restartB.mousePressed(saveExperiment);
   restartB.style("font-size", 0.35 * multiplier + "px");
   restartB.size(3.5 * multiplier, 0.7 * multiplier);
   restartB.position(24 * multiplier, 10.7 * multiplier);
@@ -64,6 +64,8 @@ function setup() {
   // Choose a default option.
   magnetFieldDirection.selected("outside");
   magnetFieldDirection.hide();
+
+  rateValuesCollect();
 }
 
 function changeMagnetDirection() {
@@ -122,8 +124,24 @@ function drawArrow(base, vec, myColor) {
   pop();
 }
 
-function reset() {
-  if (playB.value() == "paused") {
-    currentExperiment.time = 0;
+function saveExperiment() {
+  let currentAngle = angleSelectionSlider.value();
+  for (let i = 0; i < experiments.length; i++) {
+    if (experiments[i].angle == currentAngle) {
+      if (magnetOn.checked() && magnetFieldDirection.value() == "inside") {
+        experiments[i].values.with.inside.events = currentExperiment.events;
+        experiments[i].values.with.inside.time = currentExperiment.time / 1e12;
+      } else if (
+        magnetOn.checked() &&
+        magnetFieldDirection.value() == "outside"
+      ) {
+        experiments[i].values.with.outside.events = currentExperiment.events;
+        experiments[i].values.with.outside.time = currentExperiment.time / 1e12;
+      } else if (!magnetOn.checked()) {
+        experiments[i].values.without.events = currentExperiment.events;
+        experiments[i].values.without.time = currentExperiment.time / 1e12;
+      }
+    }
   }
+  rateValuesCollect();
 }

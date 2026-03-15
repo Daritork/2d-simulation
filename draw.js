@@ -33,15 +33,6 @@ function draw() {
     m1.show();
   }
 
-  // fill("red");
-  // rect(
-  //   5.1 * multiplier * cos(angleSelectionSlider.value()),
-  //   5.1 * multiplier * sin(angleSelectionSlider.value()),
-  //   1 * multiplier * sin(-angleSelectionSlider.value()),
-  //   1.2 * multiplier * cos(-angleSelectionSlider.value()),
-  // );
-  // fill(customBlack);
-
   strokeWeight(0.05 * multiplier);
   pt.show();
 

@@ -1,7 +1,7 @@
 function currentSetting() {
   const start = { x: 22 * multiplier, y: 7.2 * multiplier };
 
-  textSize(0.7 * multiplier);
+  textSize(0.6 * multiplier);
   text("Aktuelle Messung", start.x, start.y);
 
   line(
@@ -28,7 +28,7 @@ function currentSetting() {
     start.y + 2 * multiplier,
   );
 
-  text("t", start.x + 2 * multiplier, start.y + 0.9 * multiplier);
+  text("Δt", start.x + 2 * multiplier, start.y + 0.9 * multiplier);
   text(
     currentExperiment.time / 1e12,
     start.x + 2 * multiplier,

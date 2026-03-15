@@ -35,12 +35,12 @@ class particleThrower {
 
   generateParticle() {
     // if (frameCount % 20 == 0 && particles.length < 1) {
-    if (frameCount % 20 == 0) {
+    if (frameCount % 10 == 0) {
       // let int = Math.floor(Math.random() * 4);
       let int = 1;
 
       //? generates angle between -10° and 10° in gausian distribution
-      let startAngle = randomGaussian(0, 5);
+      let startAngle = randomGaussian(0, 20);
       // let startAngle = -9;
 
       //? generates random speed multiplier between 0.7 and 1
