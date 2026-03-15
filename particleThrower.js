@@ -40,7 +40,8 @@ class particleThrower {
       let int = 1;
 
       //? generates angle between -10° and 10° in gausian distribution
-      let startAngle = randomGaussian(0, 25);
+      let startAngle = randomGaussian(0, 5);
+      // let startAngle = -9;
 
       //? generates random speed multiplier between 0.7 and 1
       let speedMultipier = Math.random() * 0.3 + 0.7;

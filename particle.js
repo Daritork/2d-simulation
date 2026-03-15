@@ -95,3 +95,65 @@ class particle {
     );
   }
 }
+
+function particleControl() {
+  //? shows all current partiles on the field and checks if they are in the simulation area
+  if (particles.length) {
+    for (let i = 0; i < particles.length; i++) {
+      const x = particles[i].position.x;
+      const y = particles[i].position.y;
+      particles[i].show();
+
+      //? if a particle is outside of a simulation area, delete it
+      if (dist(x, y, 0, 0) >= 9 * multiplier) {
+        particles.splice(i, 1);
+      }
+
+      if (insideTheCounter(x, y)) {
+        //TODO: saving process
+        updateEventCount();
+        particles.splice(i, 1);
+      }
+    }
+  }
+}
+
+function insideTheCounter(x, y) {
+  const angleValue = angleSelectionSlider.value();
+  if (
+    dist(x, 0, 5.1 * multiplier * cos(angleValue), 0) <=
+      Math.max(
+        Math.abs(0.5 * multiplier * sin(angleValue)),
+        0.1 * multiplier,
+      ) &&
+    dist(0, y, 0, 5.1 * multiplier * sin(angleValue)) <=
+      Math.abs(0.6 * multiplier * cos(angleValue)) &&
+    playB.value() == "playing"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function addParticle({ speedMultipier, startAngle, type }) {
+  const startingVelocity =
+    speedMultipier * particleTypes[type].velocity * 100 * multiplier;
+
+  //? generating a new particle
+  particles.push(
+    new particle({
+      mass: particleTypes[type].mass,
+
+      charge: particleTypes[type].charge,
+
+      velocity: createVector(
+        startingVelocity * cos(startAngle),
+
+        startingVelocity * sin(startAngle),
+
+        0,
+      ),
+    }),
+  );
+}

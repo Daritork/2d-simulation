@@ -1,7 +1,5 @@
 class GeigerMüllerCounter {
-  constructor() {
-    this.collectedData = [];
-  }
+  constructor() {}
 
   show(angle) {
     push();

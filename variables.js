@@ -19,59 +19,6 @@ const particleTypes = [
   },
 ];
 
-//* results
-let experiments = [
-  [
-    -45,
-    {
-      events: 20,
-      time: 1,
-    },
-  ],
-  [
-    -30,
-    {
-      events: 2,
-      time: 1,
-    },
-  ],
-  [
-    -15,
-    {
-      events: 5,
-      time: 1,
-    },
-  ],
-  [
-    0,
-    {
-      events: 15,
-      time: 1,
-    },
-  ],
-  [
-    15,
-    {
-      events: 8,
-      time: 1,
-    },
-  ],
-  [
-    30,
-    {
-      events: 1,
-      time: 1,
-    },
-  ],
-  [
-    45,
-    {
-      events: 13,
-      time: 1,
-    },
-  ],
-];
-
 const magnetPower = 50e-3;
 
 const multiplier = window.innerWidth / 31;
