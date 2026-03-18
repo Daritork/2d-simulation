@@ -33,7 +33,7 @@ class particle {
   inMagnet() {
     if (
       dist(this.position.x, this.position.y, 2 * multiplier, 0) <
-        m1.r * multiplier &&
+      m1.r * multiplier &&
       magnetOn.checked()
     ) {
       return true;
@@ -122,12 +122,12 @@ function insideTheCounter(x, y) {
   const angleValue = angleSelectionSlider.value();
   if (
     dist(x, 0, 5.1 * multiplier * cos(angleValue), 0) <=
-      Math.max(
-        Math.abs(0.5 * multiplier * sin(angleValue)),
-        0.1 * multiplier,
-      ) &&
+    Math.max(
+      Math.abs(0.5 * multiplier * sin(angleValue)),
+      0.1 * multiplier,
+    ) &&
     dist(0, y, 0, 5.1 * multiplier * sin(angleValue)) <=
-      Math.abs(0.6 * multiplier * cos(angleValue)) &&
+    Math.abs(0.6 * multiplier * cos(angleValue)) &&
     playB.value() == "playing"
   ) {
     return true;
@@ -137,15 +137,16 @@ function insideTheCounter(x, y) {
 }
 
 function addParticle({ speedMultipier, startAngle, type }) {
+  //? times 100 because you have to transform from m to cm
   const startingVelocity =
-    speedMultipier * particleTypes[type].velocity * 100 * multiplier;
+    speedMultipier * 3e8 * 100 * multiplier;
 
   //? generating a new particle
   particles.push(
     new particle({
-      mass: particleTypes[type].mass,
+      mass: type.mass,
 
-      charge: particleTypes[type].charge,
+      charge: type.charge,
 
       velocity: createVector(
         startingVelocity * cos(startAngle),

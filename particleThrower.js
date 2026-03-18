@@ -6,15 +6,33 @@ class particleThrower {
   }
 
   show() {
+    let currentStick = selectStick.value();
+    let randomPercent = Math.random();
+
     fill("#414141");
     rect(-4 * multiplier, 0, 3 * multiplier, 1 * multiplier);
 
     if (this.radioaktiveStickInside) {
       fill("#292997");
       rect(-5 * multiplier, 0, 5.5 * multiplier, 0.7 * multiplier, 5);
-      if (playB.value() == "playing") {
+      //? generate a particle with a percent chance
+      if (
+        playB.value() == "playing" &&
+        randomPercent <
+        radioactiveSticks[currentStick].activity / simulationSlower
+      ) {
         this.generateParticle();
       }
+
+      fill("white");
+      textSize(0.3 * multiplier);
+      text(
+        radioactiveSticks[currentStick].name,
+        -6.5 * multiplier,
+        0,
+        5.5 * multiplier,
+      );
+      fill(customBlack);
     }
 
     //*holders
@@ -34,23 +52,25 @@ class particleThrower {
   }
 
   generateParticle() {
-    // if (frameCount % 20 == 0 && particles.length < 1) {
-    if (frameCount % 10 == 0) {
-      // let int = Math.floor(Math.random() * 4);
-      let int = 1;
+    let currentStick = radioactiveSticks[selectStick.value()];
 
-      //? generates angle between -10° and 10° in gausian distribution
-      let startAngle = randomGaussian(0, 20);
-      // let startAngle = -9;
+    //? generates angle between -10° and 10° in gausian distribution
+    let startAngle = randomGaussian(0, 16);
 
-      //? generates random speed multiplier between 0.7 and 1
-      let speedMultipier = Math.random() * 0.3 + 0.7;
-
-      addParticle({
-        type: int,
-        startAngle: startAngle,
-        speedMultipier: speedMultipier,
-      });
+    let speedMultipier;
+    //? generates random speed multiplier between 0.7 and 1
+    if (currentStick.particles.name == "alpha") {
+      speedMultipier = Math.random() * 0.3 + 0.7;
+    } else if (currentStick.particles.name == "beta") {
+      speedMultipier = randomGaussian(0.9, 0.01);
+    } else if (currentStick.particles.name == "gamma") {
+      speedMultipier = 1;
     }
+
+    addParticle({
+      type: currentStick.particles,
+      startAngle: startAngle,
+      speedMultipier: speedMultipier,
+    });
   }
 }

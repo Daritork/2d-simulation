@@ -6,7 +6,7 @@ function draw() {
   rectMode(CENTER);
 
   if (playB.value() == "playing") {
-    currentExperiment.time += delta_t * 10e11;
+    currentExperiment.time++;
   }
 
   //? World

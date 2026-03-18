@@ -4,7 +4,7 @@
 let angleSelectionSlider;
 
 //* Objects
-let m1, counter, pt, SimulationPlate;
+let m1, counter, pt, SimulationPlate, selectStick;
 let particles = [];
 
 //*buttons
@@ -12,19 +12,19 @@ let playB, restartB, magnetOn, magnetFieldDirection;
 
 function setup() {
   //? setUp: create Canva, Text align to middle, agnle mode to degree and shapes creation to center
-  createCanvas(window.innerWidth, (9 * window.innerWidth) / 16);
+  createCanvas(window.innerWidth, (9 * window.innerWidth) / 10.5);
 
   //*Plate
   SimulationPlate = new Plate();
 
   //*Sliders
   angleSelectionSlider = createSlider(-45, 45, 0, 15);
-  angleSelectionSlider.position(23.5 * multiplier, 11.8 * multiplier);
-  angleSelectionSlider.size(3 * multiplier, 0.5 * multiplier);
+  angleSelectionSlider.position(23.7 * multiplier, 9.8 * multiplier);
+  angleSelectionSlider.size(4 * multiplier, 0.5 * multiplier);
 
   //* Magnet
   m1 = new magnet({
-    power: magnetPower,
+    power: -magnetPower,
   });
 
   //*counter
@@ -36,34 +36,38 @@ function setup() {
   //*buttons
   playB = createButton("▶︎", "paused");
   playB.mousePressed(playButtonPressed);
-  playB.style("font-size", 0.35 * multiplier + "px");
+  playB.style("font-size", 0.4 * multiplier + "px");
   playB.size(1.8 * multiplier, 0.7 * multiplier);
-  playB.position(22 * multiplier, 10.7 * multiplier);
+  playB.position(22 * multiplier, 8.7 * multiplier);
 
   restartB = createButton("Messung speichern");
   restartB.mousePressed(saveExperiment);
-  restartB.style("font-size", 0.35 * multiplier + "px");
-  restartB.size(3.5 * multiplier, 0.7 * multiplier);
-  restartB.position(24 * multiplier, 10.7 * multiplier);
+  restartB.style("font-size", 0.3 * multiplier + "px");
+  restartB.size(5 * multiplier, 0.7 * multiplier);
+  restartB.position(24 * multiplier, 8.7 * multiplier);
 
   magnetOn = createCheckbox();
-  magnetOn.position(23.6 * multiplier, 13.25 * multiplier);
-  magnetOn.style("width", 0.5 * multiplier + "px");
+  magnetOn.position(23.6 * multiplier, 11.25 * multiplier);
 
-  // Create a radio button element and place it
-  // in the top-left corner.
   magnetFieldDirection = createRadio();
   magnetFieldDirection.mousePressed(changeMagnetDirection);
-  magnetFieldDirection.position(25.6 * multiplier, 13.9 * multiplier);
+  magnetFieldDirection.position(25.6 * multiplier, 11.9 * multiplier);
   magnetFieldDirection.size(2.5 * multiplier);
-
-  // Add a few color options.
   magnetFieldDirection.option("outside", "●");
   magnetFieldDirection.option("inside", "✖");
-
-  // Choose a default option.
   magnetFieldDirection.selected("outside");
   magnetFieldDirection.hide();
+
+  selectStick = createSelect();
+  selectStick.position(24.3 * multiplier, 10.45 * multiplier);
+  selectStick.size(2.5 * multiplier, 0.7 * multiplier);
+  selectStick.style("font-size", 0.3 * multiplier + "px");
+  selectStick.option("Am-241", 0);
+  selectStick.option("Co-60", 1);
+  selectStick.option("Cs-137", 2);
+  selectStick.option("Sr-90", 3);
+  selectStick.selected("Am-241");
+  selectStick.changed(stickChanged);
 
   rateValuesCollect();
 }
@@ -71,14 +75,16 @@ function setup() {
 function changeMagnetDirection() {
   if (magnetFieldDirection.value() == "outside") {
     m1 = new magnet({
-      power: -magnetPower,
+      power: magnetPower,
     });
   } else {
     m1 = new magnet({
-      power: magnetPower,
+      power: -magnetPower,
     });
   }
 }
+
+function stickChanged() { }
 
 function playButtonPressed() {
   playB.value(playB.value() == "paused" ? "playing" : "paused");
@@ -100,6 +106,7 @@ function hideAll() {
   magnetOn.hide();
   magnetFieldDirection.hide();
   restartB.hide();
+  selectStick.hide();
 }
 
 function showAll() {
@@ -107,6 +114,7 @@ function showAll() {
   magnetOn.show();
   magnetFieldDirection.show();
   restartB.show();
+  selectStick.show();
 }
 
 //? darws an arrow in der direction of the vector
@@ -125,21 +133,21 @@ function drawArrow(base, vec, myColor) {
 }
 
 function saveExperiment() {
-  let currentAngle = angleSelectionSlider.value();
+  let currentAngle = -angleSelectionSlider.value();
   for (let i = 0; i < experiments.length; i++) {
     if (experiments[i].angle == currentAngle) {
       if (magnetOn.checked() && magnetFieldDirection.value() == "inside") {
         experiments[i].values.with.inside.events = currentExperiment.events;
-        experiments[i].values.with.inside.time = currentExperiment.time / 1e12;
+        experiments[i].values.with.inside.time = currentExperiment.time / simulationSlower;
       } else if (
         magnetOn.checked() &&
         magnetFieldDirection.value() == "outside"
       ) {
         experiments[i].values.with.outside.events = currentExperiment.events;
-        experiments[i].values.with.outside.time = currentExperiment.time / 1e12;
+        experiments[i].values.with.outside.time = currentExperiment.time / simulationSlower;
       } else if (!magnetOn.checked()) {
         experiments[i].values.without.events = currentExperiment.events;
-        experiments[i].values.without.time = currentExperiment.time / 1e12;
+        experiments[i].values.without.time = currentExperiment.time / simulationSlower;
       }
     }
   }

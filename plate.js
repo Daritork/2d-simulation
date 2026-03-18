@@ -53,7 +53,7 @@ class Plate {
       circle(endLineCords[0], endLineCords[1], 0.6 * multiplier);
 
       strokeWeight(0);
-      text(a + "°", 7.9 * multiplier * cos(a), 7.9 * multiplier * sin(a));
+      text(-a + "°", 7.9 * multiplier * cos(a), 7.9 * multiplier * sin(a));
     }
   }
 
