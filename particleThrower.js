@@ -58,9 +58,8 @@ class particleThrower {
     let startAngle = randomGaussian(0, 16);
 
     let speedMultipier;
-    //? generates random speed multiplier between 0.7 and 1
     if (currentStick.particles.name == "alpha") {
-      speedMultipier = Math.random() * 0.3 + 0.7;
+      speedMultipier = Math.random() * 0.05 + 0.1;
     } else if (currentStick.particles.name == "beta") {
       speedMultipier = randomGaussian(0.9, 0.01);
     } else if (currentStick.particles.name == "gamma") {

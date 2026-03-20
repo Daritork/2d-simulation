@@ -84,7 +84,80 @@ function changeMagnetDirection() {
   }
 }
 
-function stickChanged() { }
+function stickChanged() {
+  experiments = [
+    {
+      angle: -45,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: -30,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: -15,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: 0,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: 15,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: 30,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+    {
+      angle: 45,
+      values: {
+        without: { events: 0, time: 0 },
+        with: {
+          outside: { events: 0, time: 0 },
+          inside: { events: 0, time: 0 },
+        },
+      },
+    },
+  ];
+}
 
 function playButtonPressed() {
   playB.value(playB.value() == "paused" ? "playing" : "paused");
